@@ -30,19 +30,15 @@ class MainActivity : AppCompatActivity() {
         val patatas = nombre.text.toString()
         val precioPatatas = precio.text.toString().toDouble()
 
+        // TODO: Crear un objeto de tipo ContentValues()
 
-        val nuevoRegistro = ContentValues()
-        nuevoRegistro.put("nombre", patatas)
-        nuevoRegistro.put("precio", precioPatatas)
-
-        //Insertamos el registro en la base de datos
-        db.insert("Patatas", null, nuevoRegistro)
+        //TODO: Insertar el registro en la base de datos usando insert()
     }
 
     private val verTodasPatatas = View.OnClickListener {
         val c = db.query(
             "Patatas",  // Tabla a la que se accede (FROM)
-            null,  // Columnas que se quieren recuperar.
+           null,  // Columnas que se quieren recuperar.
             // Si ponemos null recogemos todas (*), y podemos poner ,max(),min(),count()...
             null,  // Filtros y condiciones en el WHERE
             null,  // Los parámetros que se aplican en el WHERE (?)
@@ -60,31 +56,19 @@ class MainActivity : AppCompatActivity() {
         lista.text = ""
         var codigo: String
         var nombre: String
-        var precop: Double
-        if (c.moveToFirst()) {
-            //Recorremos el cursor hasta que no haya más registros
-            codigo = c.getString(0)
-            nombre = c.getString(1)
-            precop = c.getDouble(c.getColumnIndexOrThrow("precio"))
-
-            lista.text = lista.text.toString() + codigo + " " + nombre + " " + precop + "\n"
-            while (c.moveToNext()) {
-                codigo = c.getString(0)
-                nombre = c.getString(1)
-                precop = c.getDouble(c.getColumnIndexOrThrow("precio"))
-                lista.text = lista!!.text.toString() + codigo + " " + nombre + " " + precop + "\n"
-            }
-        }
+        var precio: Double
+        // TODO: Usar las funciones del cursor moveToFirst() y moveToNext()
         c.close()
     }
 
     private val buscarPatatas = View.OnClickListener {
-        val patatas = nombre.text.toString()
+        val precio = precio.text.toString()
+        // TODO: Modificar la query para poder buscar por un precio mayor
         val c = db.query(
             "Patatas",  // Tabla a la que se accede (FROM)
             null,  // Columnas que se quieren recuperar. Si ponemos null recogemos todas (*)
-            "nombre=?",  // Filtros y condiciones en el WHERE
-            arrayOf(patatas),  // Los parámetros que se aplican en el WHERE (?)
+            null,  // TODO
+           null,  // Los parámetros que se aplican en el WHERE (?)
             null,  // Las columnas por las que se hace group By
             null,  // La cláusula HAVING
             "id DESC"
@@ -100,20 +84,7 @@ class MainActivity : AppCompatActivity() {
         var codigo: String
         var nombre: String
         var precop: Double
-        if (c.moveToFirst()) {
-            //Recorremos el cursor hasta que no haya más registros
-            codigo = c.getString(0)
-            nombre = c.getString(1)
-            precop = c.getDouble(c.getColumnIndexOrThrow("precio"))
-
-            lista.text = lista.text.toString() + codigo + " " + nombre + " " + precop + "\n"
-            while (c.moveToNext()) {
-                codigo = c.getString(0)
-                nombre = c.getString(1)
-                precop = c.getDouble(c.getColumnIndexOrThrow("precio"))
-                lista.text = lista.text.toString() + codigo + " " + nombre + " " + precop + "\n"
-            }
-        }
+        // TODO: Obtener la información del cursor
         c.close()
     }
 
@@ -121,20 +92,17 @@ class MainActivity : AppCompatActivity() {
         val patatas = nombre.text.toString()
         val precioPatatas = precio.text.toString().toDouble()
 
-        val nuevoRegistro = ContentValues()
-        nuevoRegistro.put("nombre", patatas)
-        nuevoRegistro.put("precio", precioPatatas)
+        // TODO: Crear un objeto de tipo ContentValues()
 
-        //Actualizamos el registro en la base de datos, modifico el segundo siempre
-        db.update("Patatas", nuevoRegistro, "id=2", null)
-        // Si en el where pusieramos null, se modificarían todos los registros.
+        //TODO: Modificar el registro en la base de datos usando update().
+        // Modificad siempre al que tenga id 1.
     }
 
     private val borrarPatatas = View.OnClickListener {
         val patatas = nombre.text.toString()
         //Borro el registro (o los registros) que tengan el mismo nombre
         // db.delete("Patatas", "nombre='" + patatas + "'", null);
-        db.delete("Patatas", "nombre=?", arrayOf(patatas))
+        //TODO: Borrar los registros que tengan el mismo nombre.
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
